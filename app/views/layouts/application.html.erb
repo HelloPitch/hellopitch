@@ -7,7 +7,7 @@
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
   <script type="text/javascript" src="http://platform.linkedin.com/in.js">
-    api_key: <%=Rails.application.config.linked_in_api_key%>
+    api_key: <%=ENV['LINKED_IN_API']%>
     authorize: true
   </script>
 </head>
