@@ -1,6 +1,7 @@
 class WelcomeController < ApplicationController
 
   def index
+    redirect_to menu_path if current_user
   end
 
   def logout
