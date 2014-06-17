@@ -6,23 +6,6 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <script>
-    window.myAfterLoadCallback = function(){
-      if (IN.User.isAuthorized()) {
-        $('#logout').show();
-      } else {
-      }
-    }
-
-    $.getScript("https://platform.linkedin.com/in.js?async=true", function(){
-      IN.init({
-        api_key: '<%=ENV['LINKED_IN_API']%>',
-        authorize: true,
-        onLoad: 'myAfterLoadCallback'
-      })
-    })
-  </script>
-
 </head>
 <body>
 
@@ -37,8 +20,12 @@
       <p class="lead">
       Earn cash just by listening to sales pitches from friendly professionals!
       </p>
-      <div id="logout" style="display: none;">
-        <a href="#" id="logout-link">Logout</a>
+      <div>
+        <% if current_user %>
+          <%= link_to 'logout', '/logout', method: 'post' %>
+        <% else %>
+          <%= link_to 'login with linkedin', '/oauth2' %>
+        <% end %>
       </div>
 
     </div>
@@ -49,14 +36,6 @@
   <%= yield %>
 
 </div>
-
-<script>
-  $(function() {
-    $('#logout-link').click(function(e) {
-      e.preventDefault();
-    });
-  });
-</script>
 
 
 </body>

@@ -7,6 +7,8 @@ Rails.application.routes.draw do
   get '/oauth2' => 'welcome#oauth2'
   get '/oauth2_callback' => 'welcome#oauth2_callback'
 
+  post '/logout' => 'welcome#logout'
+
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'
 

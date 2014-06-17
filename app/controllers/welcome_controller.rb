@@ -3,6 +3,11 @@ class WelcomeController < ApplicationController
   def index
   end
 
+  def logout
+    session[:url] = nil
+    redirect_to root_path
+  end
+
   def oauth2
     session[:state] = rand(99999999999999).to_s
     callback = "#{url_by_env}/oauth2_callback"
@@ -48,9 +53,12 @@ class WelcomeController < ApplicationController
         user.last_name = json['lastName']
         user.access_token = data['access_token']
         user.lid = json['id']
-        user.public_url = data['publicProfileUrl']
-        user.save
-        session[:lid] = user.lid
+        user.public_url = json['publicProfileUrl']
+        begin
+          user.save
+        rescue
+        end
+        session[:url] = user.public_url
         redirect_to root_path
       end
     end
