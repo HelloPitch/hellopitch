@@ -6,14 +6,49 @@
   <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true %>
   <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   <%= csrf_meta_tags %>
-  <script type="text/javascript" src="http://platform.linkedin.com/in.js">
-    api_key: <%=Rails.application.config.linked_in_api_key%>
-    authorize: true
+  <script>
+    window.myAfterLoadCallback = function(){
+      if (IN.User.isAuthorized()) {
+        $('#logout').show();
+      } else {
+      }
+    }
+
+    $.getScript("https://platform.linkedin.com/in.js?async=true", function(){
+      IN.init({
+        api_key: '<%=ENV['LINKED_IN_API']%>',
+        authorize: true,
+        onLoad: 'myAfterLoadCallback'
+      })
+    })
   </script>
+
 </head>
 <body>
 
-<%= yield %>
+<div class="container" style="">
+
+  <div class="row" style="margin: 30px 0 0 0;">
+    <div class="col-sm-4" style="padding: 10px;">
+      <%= image_tag 'logo.png', width: 70, height: 70 %>
+      <span style="font-weight: bold; font-size: 24px; margin: 0 0 0 10px;">Hello, Pitch.</span>
+    </div>
+    <div class="col-sm-5">
+      <p class="lead">
+      Earn cash just by listening to sales pitches from friendly professionals!
+      </p>
+      <div id="logout" style="display: none;">
+        <a href="">Logout</a>
+      </div>
+
+    </div>
+  </div>
+
+  <hr class="half-rule">
+
+  <%= yield %>
+
+</div>
 
 </body>
 </html>
