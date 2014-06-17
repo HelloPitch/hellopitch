@@ -60,7 +60,7 @@ class WelcomeController < ApplicationController
         rescue
         end
         session[:url] = user.public_url
-        redirect_to root_path
+        redirect_to menu_path
       end
     end
 
