@@ -9,7 +9,8 @@ Rails.application.routes.draw do
 
   post '/logout' => 'welcome#logout'
 
-  get '/menu' => 'menu#index'
+  get '/sales' => 'sales#index'
+  get '/customer' => 'customer#index'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

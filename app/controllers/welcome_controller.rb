@@ -3,7 +3,7 @@ require 'net/http'
 class WelcomeController < ApplicationController
 
   def index
-    redirect_to menu_path if current_user
+    redirect_to default_path(current_user) if current_user
   end
 
   def logout
@@ -13,6 +13,7 @@ class WelcomeController < ApplicationController
 
   def oauth2
     session[:state] = rand(99999999999999).to_s
+    session[:account] = params[:account]
     callback = "#{url_by_env}/oauth2_callback"
     url_params = ['response_type=code',
                   "client_id=#{ENV['LINKED_IN_KEY']}",
@@ -58,6 +59,7 @@ class WelcomeController < ApplicationController
         user.lid = json['id']
         user.public_url = json['publicProfileUrl']
         user.email = json['emailAddress']
+        user.account_type = session[:account]
         begin
           user.save
         rescue
@@ -66,13 +68,18 @@ class WelcomeController < ApplicationController
           user.save
         end
         session[:url] = user.public_url
-        redirect_to menu_path
+        redirect_to default_path(user)
       end
     end
 
   end
 
   private
+
+  def default_path(user)
+    return customer_path if user.account_type == 'customer'
+    sales_path
+  end
 
   def save_oauth2_access_token(access_token)
     body = URI.parse('https://api.linkedin.com/v1/people/~:(id,public-profile-url,firstName,lastName,email-address)?format=json&oauth2_access_token='+access_token).read
