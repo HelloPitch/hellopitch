@@ -65,6 +65,7 @@ class WelcomeController < ApplicationController
         rescue
           user = User.find_by_public_url(user.public_url)
           user.access_token = data['access_token']
+          user.account_type = session[:account]
           user.save
         end
         session[:url] = user.public_url
