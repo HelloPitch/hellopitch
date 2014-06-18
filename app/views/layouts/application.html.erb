@@ -24,8 +24,6 @@
         <% if current_user %>
           You are <%= current_user.name %>,
           <%= link_to 'logout', '/logout', method: 'post' %>
-        <% else %>
-          <%= link_to 'login with linkedin', '/oauth2' %>
         <% end %>
       </div>
 
