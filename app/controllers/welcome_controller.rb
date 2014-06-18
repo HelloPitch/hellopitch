@@ -1,3 +1,5 @@
+require 'net/http'
+
 class WelcomeController < ApplicationController
 
   def index
@@ -14,7 +16,7 @@ class WelcomeController < ApplicationController
     callback = "#{url_by_env}/oauth2_callback"
     url_params = ['response_type=code',
                   "client_id=#{ENV['LINKED_IN_KEY']}",
-                  'scope=r_fullprofile,r_emailaddress,r_network,r_contactinfo',
+                  'scope=r_fullprofile,r_emailaddress',
                   "state=#{session[:state]}",
                   "redirect_uri=#{CGI.escape(callback)}"]
     redirect_to "https://www.linkedin.com/uas/oauth2/authorization?#{url_params.join('&')}"
@@ -55,9 +57,13 @@ class WelcomeController < ApplicationController
         user.access_token = data['access_token']
         user.lid = json['id']
         user.public_url = json['publicProfileUrl']
+        user.email = json['emailAddress']
         begin
           user.save
         rescue
+          user = User.find_by_public_url(user.public_url)
+          user.access_token = data['access_token']
+          user.save
         end
         session[:url] = user.public_url
         redirect_to menu_path
@@ -69,7 +75,7 @@ class WelcomeController < ApplicationController
   private
 
   def save_oauth2_access_token(access_token)
-    body = URI.parse('https://api.linkedin.com/v1/people/~:(id,public-profile-url,firstName,lastName)?format=json&oauth2_access_token='+access_token).read
+    body = URI.parse('https://api.linkedin.com/v1/people/~:(id,public-profile-url,firstName,lastName,email-address)?format=json&oauth2_access_token='+access_token).read
     JSON.parse(body.encode('utf-8', 'iso-8859-1'))
   end
 
