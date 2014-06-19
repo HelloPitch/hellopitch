@@ -1,8 +1,8 @@
 
 <% if @active == 'targets'%> Targets <%else%> <%=link_to 'Targets', sales_targets_path %> <%end%>
 |
-<%=link_to 'Schedule', sales_schedule_path %>
+<% if @active == 'schedule'%> Schedule <%else%> <%=link_to 'Schedule', sales_schedule_path %> <%end%>
 |
-<%=link_to 'Profile', sales_profile_path %>
+<% if @active == 'profile'%> Profile <%else%> <%=link_to 'Profile', sales_profile_path %> <%end%>
 |
-<%=link_to 'Payment', sales_payment_path %>
+<% if @active == 'payment'%> Payment <%else%> <%=link_to 'Payment', sales_payment_path %> <%end%>

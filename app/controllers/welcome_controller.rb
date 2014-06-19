@@ -79,7 +79,7 @@ class WelcomeController < ApplicationController
 
   def default_path(user)
     return customer_path if user.account_type == 'customer'
-    sales_path
+    sales_targets_path
   end
 
   def save_oauth2_access_token(access_token)
