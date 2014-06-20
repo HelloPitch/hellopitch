@@ -13,24 +13,20 @@
 
   <div class="row" style="margin: 30px 0 0 0;">
     <div class="col-sm-4" style="padding: 10px;">
-      <%= image_tag 'logo.png', width: 70, height: 70 %>
+      <%= image_tag 'logo.png', width: 35, height: 35 %>
       <span style="font-weight: bold; font-size: 24px; margin: 0 0 0 10px;">Hello, Pitch.</span>
     </div>
     <div class="col-sm-5">
-      <p class="lead">
-      Earn cash just by listening to sales pitches from friendly professionals!
-      </p>
       <div>
         <% if current_user %>
           You are <%= current_user.name %>,
           <%= link_to 'logout', '/logout', method: 'post' %>
+          <hr class="half-rule">
         <% end %>
       </div>
 
     </div>
   </div>
-
-  <hr class="half-rule">
 
   <%= yield %>
 
