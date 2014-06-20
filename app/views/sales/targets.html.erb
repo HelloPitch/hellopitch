@@ -31,7 +31,7 @@
       </div>
 
       <div style="margin: 10px 0 10px 0; color: #898989">
-        You have 60 seconds to call...
+        You have <span id="seconds">60</span> seconds to call...
       </div>
 
       <div style="border: 1px solid #CECECE; padding: 5px;">
@@ -48,8 +48,22 @@
           <a href="tel:+13105551234">310-555-1234</a>
         </div>
       </div>
-    <% end %>
+      <script>
+        var count = 60;
 
+        callthis = function() {
+          count--;
+          $('#seconds')[0].innerHTML = count;
+          if (count > 0) {
+            setTimeout(callthis, 1000);
+          }
+        }
+
+        setTimeout(callthis, 1000);
+
+      </script>
+    <% end %>
 
   </div>
 </div>
+
