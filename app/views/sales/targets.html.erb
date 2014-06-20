@@ -3,24 +3,52 @@
     <%= render :partial => 'menu' %>
   </div>
   <div class="col-sm-4">
-    <div style="margin: 10px 0 0 0;">
-      &bull; People who work for 50-200 person companies.
-    </div>
-    <div style="margin: 10px 0 0 0;">
-      &bull; In sectors: Healthcare, Manufacturing
-    </div>
-    <div style="margin: 10px 0 0 0;">
-      &bull; In countries: USA, Canada
-    </div>
-    <div style="margin: 10px 0 5px 0; color: #898989">
-      45,345 people match. You have talked with 37 of them.
-    </div>
-    <div style="margin: 10px 0 5px 0; color: #898989; text-align: center;">
-      <button type="button" class="btn btn-success"> Turn Pitch Mode ON </button>
-<br/>
-<br/>
-(be ready to pitch, and turn off pitch mode when you need a break.)
-    </div>
+    <% if session[:sales_mode] %>
+      <div style="margin: 10px 0 0 0;">
+        &bull; People who work for 50-200 person companies.
+      </div>
+      <div style="margin: 10px 0 0 0;">
+        &bull; In sectors: Healthcare, Manufacturing
+      </div>
+      <div style="margin: 10px 0 0 0;">
+        &bull; In countries: USA, Canada
+      </div>
+      <div style="margin: 10px 0 5px 0; color: #898989">
+        45,345 people match. You have talked with 37 of them.
+      </div>
+      <div style="margin: 10px 0 5px 0; color: #898989; text-align: center;">
+        <form method="post" action="<%=sales_targets_mode_path%>">
+        <button type="submit" class="btn btn-success"> Turn Pitch Mode ON </button>
+        </form>
+  <br/>
+  (be ready to pitch, and turn off pitch mode when you need a break.)
+      </div>
+    <% else %>
+      <div style="margin: 10px 0 5px 0; color: #898989; text-align: center;">
+        <form method="post" action="<%=sales_targets_mode_path%>">
+        <button type="submit" class="btn btn-danger"> Turn Pitch Mode OFF </button>
+        </form>
+      </div>
+
+      <div style="margin: 10px 0 10px 0; color: #898989">
+        You have 60 seconds to call...
+      </div>
+
+      <div style="border: 1px solid #CECECE; padding: 5px;">
+        <div style="margin: 0px 0 0px 0; color: rgb(64,117,180); font-size: 18px;">
+          Michael Smithertime
+        </div>
+        <div style="margin: 0px 0 0px 0; color: #454545; font-size: 13px;">
+          Technical Engineer at Sandhill Systems
+        </div>
+        <div style="margin: 0px 0 5px 0; color: #898989; font-size: 13px;">
+          Greater Los Angeles Area
+        </div>
+        <div style="margin: 0px 0 5px 0; color: #898989; font-size: 13px;">
+          <a href="tel:+13105551234">310-555-1234</a>
+        </div>
+      </div>
+    <% end %>
 
 
   </div>

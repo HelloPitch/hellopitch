@@ -18,6 +18,11 @@ class SalesController < ApplicationController
   def payment
   end
 
+  def mode
+    session[:sales_mode] = !session[:sales_mode]
+    redirect_to sales_targets_path
+  end
+
   private
 
   def active_tab
