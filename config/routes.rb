@@ -8,7 +8,7 @@ Rails.application.routes.draw do
 
   get '/sales' => 'sales#index'
   get '/sales/targets' => 'sales#targets'
-  get '/sales/schedule' => 'sales#schedule'
+  get '/sales/history' => 'sales#history'
   get '/sales/profile' => 'sales#profile'
   get '/sales/payment' => 'sales#payment'
   get '/customer' => 'customer#index'

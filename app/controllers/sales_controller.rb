@@ -9,7 +9,7 @@ class SalesController < ApplicationController
   def targets
   end
 
-  def schedule
+  def history
   end
 
   def profile
@@ -23,7 +23,7 @@ class SalesController < ApplicationController
   def active_tab
     path = request.env['PATH_INFO']
     @active = 'targets' if path.index('/targets')
-    @active = 'schedule' if path.index('/schedule')
+    @active = 'history' if path.index('/history')
     @active = 'profile' if path.index('/profile')
     @active = 'payment' if path.index('/payment')
   end

@@ -1,8 +1,4 @@
-
-<% if @active == 'targets'%> Targets <%else%> <%=link_to 'Targets', sales_targets_path %> <%end%>
-|
-<% if @active == 'schedule'%> Schedule <%else%> <%=link_to 'Schedule', sales_schedule_path %> <%end%>
-|
-<% if @active == 'profile'%> Profile <%else%> <%=link_to 'Profile', sales_profile_path %> <%end%>
-|
-<% if @active == 'payment'%> Payment <%else%> <%=link_to 'Payment', sales_payment_path %> <%end%>
+<% ['Targets', 'History', 'Profile', 'Payment'].each_with_index do |tab,index| %>
+  <% if @active == tab.downcase%> <%=tab%> <%else%> <%=link_to tab, self.send("sales_#{tab.downcase}_path") %> <%end%>
+<% concat '|' if index < 3 %>
+<% end %>
