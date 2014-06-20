@@ -30,7 +30,7 @@
         </form>
       </div>
 
-      <div style="margin: 10px 0 10px 0; color: #898989">
+      <div id="call-info" style="margin: 10px 0 10px 0; color: #898989; text-align: center;">
         You have <span id="seconds">60</span> seconds to call...
       </div>
 
@@ -48,8 +48,22 @@
           <a href="tel:+13105551234">310-555-1234</a>
         </div>
       </div>
+      <div id="call-controls" style="margin: 15px 0 5px 0; color: #898989; text-align: center;">
+        <button type="button" onClick="startCall();" class="btn btn-default">I'm Dialing</button>
+        &nbsp;
+        &nbsp;
+        or
+        &nbsp;
+        &nbsp;
+        <a href="">skip this one</a>
+      </div>
       <script>
         var count = 60;
+
+        function startCall() {
+          $('#call-info')[0].innerHTML = 'CALL IN PROGRESS';
+          $('#call-controls')[0].innerHTML = '<button type="button" class="btn btn-default">Call is Done</button>';
+        }
 
         callthis = function() {
           count--;
